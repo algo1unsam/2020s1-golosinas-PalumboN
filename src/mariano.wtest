@@ -1,0 +1,58 @@
+import golosinas.golosinas.*
+import mariano.*
+
+test "probar golosinas" {
+	mariano.comprar(bombon)
+	mariano.comprar(chupetin)
+	mariano.probarGolosinas()
+	assert.that(bombon.peso() < 15)
+	assert.that(chupetin.peso() < 7)
+}
+
+test "hayGolosinaSinTACC" {
+	mariano.comprar(bombon)
+	mariano.comprar(chocolatin)
+	assert.that(mariano.hayGolosinaSinTACC())
+}
+
+test "NO hayGolosinaSinTACC" {
+	mariano.comprar(chocolatin)
+	assert.notThat(mariano.hayGolosinaSinTACC())
+}
+
+test "golosinaDeSabor chocolate" {
+	mariano.comprar(bombon)
+	mariano.comprar(chocolatin)
+	mariano.comprar(chupetin)
+	assert.equals(chocolatin, mariano.golosinaDeSabor("chocolate"))
+}
+
+test "golosinasDeSabor frutilla" {
+	mariano.comprar(bombon)
+	mariano.comprar(chocolatin)
+	mariano.comprar(chupetin)
+	mariano.comprar(pastilla)
+	assert.equals([ bombon, pastilla ], mariano.golosinasDeSabor("frutilla"))
+}
+
+test "sabores" {
+	mariano.comprar(bombon)
+	mariano.comprar(chocolatin)
+	mariano.comprar(chupetin)
+	mariano.comprar(pastilla)
+	assert.equals(#{ "frutilla", "chocolate", "naranja" }, mariano.sabores())
+}
+
+test "golosinaMasCara" {
+	mariano.comprar(bombon)
+	mariano.comprar(chupetin)
+	mariano.comprar(pastilla)
+	assert.equals(pastilla, mariano.golosinaMasCara())
+}
+
+test "pesoGolosinas" {
+	mariano.comprar(bombon)
+	mariano.comprar(chupetin)
+	mariano.comprar(pastilla)
+	assert.equals(15 + 7 + 5, mariano.pesoGolosinas())
+}
